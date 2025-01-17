@@ -7,7 +7,7 @@ const TeamMembers = () => {
   const [members, setMembers] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
-  const [newMember, setNewMember] = useState({
+  const [newMember] = useState({
     name: "",
     role: "",
     bio: "",

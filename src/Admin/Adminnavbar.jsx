@@ -5,15 +5,12 @@ import { FaHome, FaImage, FaTasks, FaUsers, FaUserPlus, FaProjectDiagram, FaShie
 
 import { 
   Menu, 
-  Home, 
+
   User, 
   LayoutDashboard, 
-  Users, 
-  History, 
-  Settings, 
+ 
   LogOut,
-  UserRoundPlus,
-  Shield
+
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
