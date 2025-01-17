@@ -20,7 +20,7 @@ const AddEventphoto = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:9092/api/event/addphoto",
+        "http://localhost:9092/api/event/addeventphoto",
         formData,
         {
           headers: {
@@ -112,4 +112,4 @@ const AddEventphoto = () => {
   );
 };
 
-export default AddActivity;
+export default AddEventphoto;

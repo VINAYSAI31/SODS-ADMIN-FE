@@ -13,7 +13,6 @@ const AllActivities = () => {
     try {
       const response = await axios.get("http://localhost:9092/api/activity/getactivities");
       setActivities(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching activities:", error);
     }

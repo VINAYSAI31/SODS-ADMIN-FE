@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { Shield, Key, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 const Adminlogin = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const {  
     register,
@@ -24,6 +26,7 @@ const Adminlogin = () => {
       
       
       if (response.data === true) {
+        login();
         navigate('/adminhome'); // Redirect on successful login
       } else {
         alert('Invalid username or password. Please try again.');

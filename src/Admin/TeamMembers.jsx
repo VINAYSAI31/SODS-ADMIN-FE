@@ -25,7 +25,6 @@ const TeamMembers = () => {
         "http://localhost:9092/api/member/getallmembers"
       );
       setMembers(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching members:", error);
     }

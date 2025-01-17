@@ -1,4 +1,8 @@
 import React from 'react';
+import axios from 'axios'; // Import axios\
+
+import { FaHome, FaImage, FaTasks, FaUsers, FaUserPlus, FaProjectDiagram, FaShieldAlt } from 'react-icons/fa';
+
 import { 
   Menu, 
   Home, 
@@ -12,29 +16,35 @@ import {
   Shield
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
- 
+import { useAuth } from './AuthContext';
+
 // Donor Navbar Component
 const Adminnavbar = () => {
-   const Navigate=useNavigate(); 
-  const handleLogout = async () => {
-    Navigate("/")
-    try {
-      const response = await fetch('http://localhost:2024/api/admin/logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
+  const { logout } = useAuth();
 
-      if (response.ok) {
+  const Navigate = useNavigate();
+  
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:9092/api/admin/logout', 
+        {}, // Axios requires a data object for POST requests; use an empty object if no data is sent
+        { withCredentials: true } // Enable sending cookies for cross-origin requests
+      );
+
+      if (response.status === 200) {
         // Clear tokens and redirect to login page
+        logout();
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-        window.location.href = '/';
+        
+        Navigate("/");
       } else {
         console.error('Failed to logout:', response.statusText);
         alert('Logout failed. Please try again.');
       }
     } catch (error) {
-      console.error('Error during logout:', error);
+      console.error('Error during logout:', error.message);
       alert('An error occurred. Please try again later.');
     }
   };
@@ -64,17 +74,16 @@ const Adminnavbar = () => {
 
         {/* Navigation Links */}
         <div className="flex-1 py-6 space-y-1 px-3 text-gray-100">
-          <div className="space-y-2 px-3">
-            <NavItem icon={Home} text="Home" to="/adminhome" />
-            <NavItem icon={User} text="Activities" to="/allactivities" />
-            <NavItem icon={LayoutDashboard} text="Add Activity" to="/addactivity" />
-            <NavItem icon={Users} text="Team Members" to="/teammembers" />
-            <NavItem icon={UserRoundPlus} text="Add Member" to="/addmember" />
-            <NavItem icon={History} text="Projects" to="/allprojects" />
-            <NavItem icon={Shield} text="Admins" to="/alladmins"/>
-            <NavItem icon={Settings} text="Settings" to="/settings" />
-            
-          </div>
+        <div className="space-y-2 px-3">
+        <NavItem icon={FaHome} text="Home" to="/adminhome" />
+  <NavItem icon={FaImage} text="Gallery" to="/addeventphoto" />
+  <NavItem icon={FaTasks} text="Activities" to="/allactivities" />
+  <NavItem icon={LayoutDashboard} text="Add Activity" to="/addactivity" />
+  <NavItem icon={FaUsers} text="Team Members" to="/teammembers" />
+  <NavItem icon={FaUserPlus} text="Add Member" to="/addmember" />
+  <NavItem icon={FaProjectDiagram} text="Projects" to="/allprojects" />
+  <NavItem icon={FaShieldAlt} text="Admins" to="/alladmins" />
+</div>
         </div>
 
         {/* Footer */}

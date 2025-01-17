@@ -9,19 +9,22 @@ import TeamMembers from './Admin/TeamMembers';
 import AddMember from './Admin/AddMember';
 import AddActivity from './Admin/AddActivity';
 import AllAdmins from './Admin/AllAdmins';
+import AddEventPhoto from './Admin/AddEventPhoto';
+import ProtectedRoute from './Admin/ProtectedRoute';
 
 function App() {
   return (
     <BrowserRouter>
     <Routes>
      <Route path='/' element={<Adminlogin/>}/>
-     <Route path='/adminhome' element={<Adminhome />}/>
-      <Route path='/allprojects' element={<AllProjects />}/>
-      <Route path='/addactivity' element={<AddActivity />}/>
-      <Route path='/teammembers' element={<TeamMembers />}/>
-      <Route path='/allactivities' element={<AllActivities />}/>
-      <Route path='/addmember' element={<AddMember/>}/>
-      <Route path='/alladmins' element={<AllAdmins />}/>
+     <Route path='/adminhome' element={ <ProtectedRoute><Adminhome /></ProtectedRoute>}/>
+      <Route path='/allprojects' element={ <ProtectedRoute><AllProjects /></ProtectedRoute>}/>
+      <Route path='/addactivity' element={ <ProtectedRoute><AddActivity /></ProtectedRoute>}/>
+      <Route path='/teammembers' element={ <ProtectedRoute><TeamMembers /></ProtectedRoute>}/>
+      <Route path='/allactivities' element={ <ProtectedRoute><AllActivities /></ProtectedRoute>}/>
+      <Route path='/addmember' element={ <ProtectedRoute><AddMember/></ProtectedRoute>}/>
+      <Route path='/alladmins' element={ <ProtectedRoute><AllAdmins /></ProtectedRoute>}/>
+      <Route path='/addeventphoto' element={ <ProtectedRoute><AddEventPhoto/></ProtectedRoute>}/>
     </Routes>
     </BrowserRouter>
   );
