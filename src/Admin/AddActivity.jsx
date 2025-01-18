@@ -20,8 +20,8 @@ const AddActivity = () => {
       new Blob(
         [
           JSON.stringify({
-            title:data.title,
-            des:data.des,
+            title: data.title,
+            des: data.des,
           }),
         ],
         { type: "application/json" }
@@ -59,7 +59,7 @@ const AddActivity = () => {
       <Adminnavbar />
 
       {/* Main Content */}
-      <div className="main-content bg-gray-100 min-h-screen p-6">
+      <div className="main-content bg-gray-100 min-h-screen p-4 sm:p-6">
         <div className="card-container">
           {/* Top Card */}
           <div className="top-card flex justify-between items-center bg-white p-4 rounded shadow mb-6">
@@ -69,7 +69,7 @@ const AddActivity = () => {
                 <input
                   type="text"
                   placeholder="Search..."
-                  className="px-4 py-2 border border-gray-300 rounded-md w-64"
+                  className="px-4 py-2 border border-gray-300 rounded-md w-32 sm:w-64"
                 />
                 <i className="fas fa-search absolute right-3 top-3 text-gray-400"></i>
               </div>

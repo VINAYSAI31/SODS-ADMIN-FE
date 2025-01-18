@@ -87,14 +87,14 @@ const AllActivities = () => {
     <>
       <Adminnavbar />
 
-      <div className="main-content">
+      <div className="main-content px-4 py-6 sm:px-6 lg:px-8">
         <div className="card-container">
-          <div className="top-card">
+          <div className="top-card mb-4">
             <h2>Hello Admin</h2>
-            <div className="top-actions">
-              <div className="search-bar">
-                <input type="text" placeholder="Search..." />
-                <i className="fas fa-search"></i>
+            <div className="top-actions flex items-center justify-between">
+              <div className="search-bar flex items-center">
+                <input type="text" placeholder="Search..." className="p-2 border rounded-md" />
+                <i className="fas fa-search ml-2"></i>
               </div>
               <div className="bell-icon">
                 <i className="fas fa-bell"></i>
@@ -108,55 +108,57 @@ const AllActivities = () => {
                 <h2 className="text-2xl font-bold">Activities</h2>
               </div>
 
-              <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-md">
-                <thead>
-                  <tr className="bg-gray-100 text-left">
-                    <th className="px-4 py-2 border">Title</th>
-                    <th className="px-4 py-2 border">Description</th>
-                    <th className="px-4 py-2 border">Image</th>
-                    <th className="px-4 py-2 border">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {activities.map((activity) => (
-                    <tr key={activity.id}>
-                      <td className="px-4 py-2 border">{activity.title}</td>
-                      <td className="px-4 py-2 border">{activity.des}</td>
-                      <td className="px-4 py-2 border">
-                        <img
-                          src={`https://sods-admin.up.railway.app/api/activity/getactivityimage/${activity.id}`}
-                          alt={`${activity.title}`}
-                          className="w-16 h-16 object-cover rounded-full"
-                        />
-                      </td>
-                      <td className="px-4 py-2 border flex gap-2">
-                        <button
-                          className="px-4 py-1 text-white bg-blue-500 rounded hover:bg-blue-600"
-                          onClick={() => {
-                            setIsEditing(true);
-                            setSelectedActivity(activity);
-                          }}
-                        >
-                          Edit
-                        </button>
-
-                        <button
-                          className="px-4 py-1 text-white bg-red-500 rounded hover:bg-red-600"
-                          onClick={() => handleDelete(activity.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
+              <div className="overflow-x-auto">
+                <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-md">
+                  <thead>
+                    <tr className="bg-gray-100 text-left">
+                      <th className="px-4 py-2 border">Title</th>
+                      <th className="px-4 py-2 border">Description</th>
+                      <th className="px-4 py-2 border">Image</th>
+                      <th className="px-4 py-2 border">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {activities.map((activity) => (
+                      <tr key={activity.id}>
+                        <td className="px-4 py-2 border">{activity.title}</td>
+                        <td className="px-4 py-2 border">{activity.des}</td>
+                        <td className="px-4 py-2 border">
+                          <img
+                            src={`https://sods-admin.up.railway.app/api/activity/getactivityimage/${activity.id}`}
+                            alt={`${activity.title}`}
+                            className="w-16 h-16 object-cover rounded-full"
+                          />
+                        </td>
+                        <td className="px-4 py-2 border flex gap-2">
+                          <button
+                            className="px-4 py-1 text-white bg-blue-500 rounded hover:bg-blue-600"
+                            onClick={() => {
+                              setIsEditing(true);
+                              setSelectedActivity(activity);
+                            }}
+                          >
+                            Edit
+                          </button>
+
+                          <button
+                            className="px-4 py-1 text-white bg-red-500 rounded hover:bg-red-600"
+                            onClick={() => handleDelete(activity.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             {isEditing && (
               <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
                 <form
-                  className="bg-white p-6 rounded shadow-md w-1/3"
+                  className="bg-white p-6 rounded shadow-md w-full max-w-lg"
                   onSubmit={handleEditSubmit}
                 >
                   <h2 className="text-lg font-bold mb-4">Edit Activity</h2>
@@ -180,21 +182,21 @@ const AllActivities = () => {
                       </div>
                     ) : (
                       <div className="mb-4" key={key}>
-                      <label className="block text-gray-700">
-                        Poster
-                      </label>
-                      <input
-                        type="file"
-                        name={key}
-                        onChange={(e) =>
-                          setSelectedActivity({
-                                ...selectedActivity,
-                                [key]: e.target.files[0],
-                              })
-                        }
-                        className="w-full px-3 py-2 border rounded"
-                      />
-                    </div>
+                        <label className="block text-gray-700">
+                          Poster
+                        </label>
+                        <input
+                          type="file"
+                          name={key}
+                          onChange={(e) =>
+                            setSelectedActivity({
+                              ...selectedActivity,
+                              [key]: e.target.files[0],
+                            })
+                          }
+                          className="w-full px-3 py-2 border rounded"
+                        />
+                      </div>
                     )
                   )}
                   <div className="flex justify-end gap-2">

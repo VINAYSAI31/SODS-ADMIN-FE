@@ -34,9 +34,6 @@ const TeamMembers = () => {
     fetchMembers();
   }, []);
 
-  // Handle adding a new member
-
-
   // Handle editing a member
   const handleEditSubmit = async (e) => {
     e.preventDefault();
@@ -135,67 +132,101 @@ const TeamMembers = () => {
             <div className="container mx-auto">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-bold">Team Members</h2>
-                
               </div>
 
-              <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-md">
-                <thead>
-                  <tr className="bg-gray-100 text-left">
-                    <th className="px-4 py-2 border">Name</th>
-                    <th className="px-4 py-2 border">Role</th>
-                    <th className="px-4 py-2 border">Bio</th>
-                    <th className="px-4 py-2 border">Year</th>
-                    <th className="px-4 py-2 border">Image</th>
-                    <th className="px-4 py-2 border">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {members.map((member) => (
-                    <tr key={member.id}>
-                      <td className="px-4 py-2 border">{member.name}</td>
-                      <td className="px-4 py-2 border">{member.role}</td>
-                      <td className="px-4 py-2 border">{member.bio}</td>
-                      <td className="px-4 py-2 border">{member.year}</td>
-                      <td className="px-4 py-2 border">
-                        <img
-                          src={`https://sods-admin.up.railway.app/api/member/getmemberimage/${member.id}`}
-                          alt={`${member.name}'s profile`}
-                          className="w-16 h-16 object-cover rounded-full"
-                        />
-                      </td>
-                      <td className="px-4 py-2 border flex gap-2">
-                        <button
-                          className="px-4 py-1 text-white bg-blue-500 rounded hover:bg-blue-600"
-                          onClick={() => {
-                            setIsEditing(true);
-                            setSelectedMember(member);
-                          }}
-                        >
-                          Edit
-                        </button>
-
-                        <button
-                          className="px-4 py-1 text-white bg-red-500 rounded hover:bg-red-600"
-                          onClick={() => handleDelete(member.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
+              {/* Table layout for larger screens */}
+              <div className="hidden lg:block">
+                <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-md">
+                  <thead>
+                    <tr className="bg-gray-100 text-left">
+                      <th className="px-4 py-2 border">Name</th>
+                      <th className="px-4 py-2 border">Role</th>
+                      <th className="px-4 py-2 border">Bio</th>
+                      <th className="px-4 py-2 border">Year</th>
+                      <th className="px-4 py-2 border">Image</th>
+                      <th className="px-4 py-2 border">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {members.map((member) => (
+                      <tr key={member.id}>
+                        <td className="px-4 py-2 border">{member.name}</td>
+                        <td className="px-4 py-2 border">{member.role}</td>
+                        <td className="px-4 py-2 border">{member.bio}</td>
+                        <td className="px-4 py-2 border">{member.year}</td>
+                        <td className="px-4 py-2 border">
+                          <img
+                            src={`https://sods-admin.up.railway.app/api/member/getmemberimage/${member.id}`}
+                            alt={`${member.name}'s profile`}
+                            className="w-16 h-16 object-cover rounded-full"
+                          />
+                        </td>
+                        <td className="px-4 py-2 border flex gap-2">
+                          <button
+                            className="px-4 py-1 text-white bg-blue-500 rounded hover:bg-blue-600"
+                            onClick={() => {
+                              setIsEditing(true);
+                              setSelectedMember(member);
+                            }}
+                          >
+                            Edit
+                          </button>
+
+                          <button
+                            className="px-4 py-1 text-white bg-red-500 rounded hover:bg-red-600"
+                            onClick={() => handleDelete(member.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Card layout for smaller screens */}
+              <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {members.map((member) => (
+                  <div key={member.id} className="border p-4 rounded-lg">
+                    <img
+                      src={`https://sods-admin.up.railway.app/api/member/getmemberimage/${member.id}`}
+                      alt={`${member.name}'s profile`}
+                      className="w-16 h-16 object-cover rounded-full mb-4"
+                    />
+                    <h3 className="text-xl font-semibold">{member.name}</h3>
+                    <p className="text-gray-600">{member.role}</p>
+                    <p className="text-gray-600">{member.bio}</p>
+                    <div className="mt-4">
+                      <button
+                        className="px-4 py-1 text-white bg-blue-500 rounded hover:bg-blue-600 mb-2 block w-full"
+                        onClick={() => {
+                          setIsEditing(true);
+                          setSelectedMember(member);
+                        }}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        className="px-4 py-1 text-white bg-red-500 rounded hover:bg-red-600 block w-full"
+                        onClick={() => handleDelete(member.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {( isEditing) && (
+            {isEditing && (
               <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
                 <form
-                  className="bg-white p-6 rounded shadow-md w-1/3"
+                  className="bg-white p-6 rounded shadow-md w-11/12 sm:w-1/2 md:w-1/3"
                   onSubmit={handleEditSubmit}
                 >
-                  <h2 className="text-lg font-bold mb-4">
-                    { "Edit Member"}
-                  </h2>
+                  <h2 className="text-lg font-bold mb-4">Edit Member</h2>
                   {Object.keys(newMember).map((key) =>
                     key !== "image" ? (
                       <div className="mb-4" key={key}>
@@ -203,14 +234,12 @@ const TeamMembers = () => {
                         <input
                           type="text"
                           name={key}
-                          value={
-                             selectedMember[key]
-                          }
+                          value={selectedMember[key]}
                           onChange={(e) =>
                             setSelectedMember({
-                                  ...selectedMember,
-                                  [key]: e.target.value,
-                                })
+                              ...selectedMember,
+                              [key]: e.target.value,
+                            })
                           }
                           className="w-full px-3 py-2 border rounded"
                           required
@@ -225,10 +254,10 @@ const TeamMembers = () => {
                           type="file"
                           name={key}
                           onChange={(e) =>
-                             setSelectedMember({
-                                  ...selectedMember,
-                                  [key]: e.target.files[0],
-                                })
+                            setSelectedMember({
+                              ...selectedMember,
+                              [key]: e.target.files[0],
+                            })
                           }
                           className="w-full px-3 py-2 border rounded"
                         />
@@ -240,7 +269,6 @@ const TeamMembers = () => {
                       type="button"
                       className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
                       onClick={() => {
-                        
                         setIsEditing(false);
                       }}
                     >
@@ -250,7 +278,7 @@ const TeamMembers = () => {
                       type="submit"
                       className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                     >
-                      {"Save Changes"}
+                      Save Changes
                     </button>
                   </div>
                 </form>

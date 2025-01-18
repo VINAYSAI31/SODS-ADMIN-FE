@@ -29,7 +29,7 @@ const AllAdmins = () => {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("sods-admin.up.railway.app/api/admin/addadmin", newAdmin);
+      await axios.post("https://sods-admin.up.railway.app/api/admin/addadmin", newAdmin);
       setIsAdding(false);
       setNewAdmin({ username: "", password: "" });
       fetchAdmins(); // Refresh admin list
@@ -40,7 +40,6 @@ const AllAdmins = () => {
 
   // Handle deleting an admin
   const handleDelete = async (id) => {
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -52,7 +51,7 @@ const AllAdmins = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`sods-admin.up.railway.app/api/admin/deleteadmin/${id}`);
+          await axios.delete(`https://sods-admin.up.railway.app/api/admin/deleteadmin/${id}`);
           fetchAdmins(); // Refresh admin list
           Swal.fire("Deleted!", "The admin has been deleted.", "success");
         } catch (error) {
@@ -75,7 +74,7 @@ const AllAdmins = () => {
             <h2>Hello Admin</h2>
             <div className="top-actions">
               <div className="search-bar">
-                <input type="text" placeholder="Search..." />
+                <input type="text" placeholder="Search..." className="p-2 rounded border" />
                 <i className="fas fa-search"></i>
               </div>
               <div className="bell-icon">
@@ -87,8 +86,8 @@ const AllAdmins = () => {
           {/* Main Dashboard Card */}
           <div className="main-card p-6">
             <div className="container mx-auto">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">All Admins</h2>
+              <div className="flex justify-between items-center mb-4 flex-col sm:flex-row">
+                <h2 className="text-2xl font-bold mb-4 sm:mb-0">All Admins</h2>
                 <button
                   className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                   onClick={() => setIsAdding(true)}
@@ -98,38 +97,40 @@ const AllAdmins = () => {
               </div>
 
               {/* Admins Table */}
-              <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-md">
-                <thead>
-                  <tr className="bg-gray-100 text-left">
-                  <th className="px-4 py-2 border">ID</th>
-                    <th className="px-4 py-2 border">Username</th>
-                    <th className="px-4 py-2 border">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {admins.map((admin) => (
-                    <tr key={admin.id}>
-                        <td className="px-4 py-2 border">{admin.id}</td>
-                      <td className="px-4 py-2 border">{admin.username}</td>
-                      <td className="px-4 py-2 border flex gap-2">
-                        <button
-                          className="px-4 py-1 text-white bg-red-500 rounded hover:bg-red-600"
-                          onClick={() => handleDelete(admin.id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
+              <div className="overflow-x-auto">
+                <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-md">
+                  <thead>
+                    <tr className="bg-gray-100 text-left">
+                      <th className="px-4 py-2 border">ID</th>
+                      <th className="px-4 py-2 border">Username</th>
+                      <th className="px-4 py-2 border">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {admins.map((admin) => (
+                      <tr key={admin.id}>
+                        <td className="px-4 py-2 border">{admin.id}</td>
+                        <td className="px-4 py-2 border">{admin.username}</td>
+                        <td className="px-4 py-2 border flex gap-2">
+                          <button
+                            className="px-4 py-1 text-white bg-red-500 rounded hover:bg-red-600"
+                            onClick={() => handleDelete(admin.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             {/* Add Admin Form */}
             {isAdding && (
               <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
                 <form
-                  className="bg-white p-6 rounded shadow-md w-1/3"
+                  className="bg-white p-6 rounded shadow-md w-full sm:w-1/3"
                   onSubmit={handleAddSubmit}
                 >
                   <h2 className="text-lg font-bold mb-4">Add Admin</h2>

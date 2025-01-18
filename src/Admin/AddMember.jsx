@@ -64,18 +64,18 @@ const AddMember = () => {
       <Adminnavbar />
 
       {/* Main Content */}
-      <div className="main-content">
+      <div className="main-content p-4 sm:p-6">
         <div className="card-container">
           {/* Top Card */}
-          <div className="top-card">
-            <h2>Hello Admin</h2>
-            <div className="top-actions">
-              <div className="search-bar">
-                <input type="text" placeholder="Search..." />
-                <i className="fas fa-search"></i>
+          <div className="top-card mb-6">
+            <h2 className="text-xl font-bold">Hello Admin</h2>
+            <div className="top-actions flex items-center space-x-4">
+              <div className="search-bar relative w-32 sm:w-64">
+                <input type="text" placeholder="Search..." className="px-4 py-2 border border-gray-300 rounded-md w-full" />
+                <i className="fas fa-search absolute right-3 top-3 text-gray-400"></i>
               </div>
               <div className="bell-icon">
-                <i className="fas fa-bell"></i>
+                <i className="fas fa-bell text-gray-500 text-xl"></i>
               </div>
             </div>
           </div>
@@ -84,8 +84,8 @@ const AddMember = () => {
           <div className="main-card">
             <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
               <h2 className="text-2xl font-bold text-gray-700 mb-6">Add Member</h2>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                {/* Name */} 
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                {/* Name */}
                 <div>
                   <label className="block text-sm font-medium text-gray-600 mb-1">
                     Name:
