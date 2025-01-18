@@ -22,7 +22,7 @@ const TeamMembers = () => {
   const fetchMembers = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:9092/api/member/getallmembers"
+        "https://sods-admin.up.railway.app/api/member/getallmembers"
       );
       setMembers(response.data);
     } catch (error) {
@@ -56,7 +56,7 @@ const TeamMembers = () => {
         }
         try {
           await axios.put(
-            `http://localhost:9092/api/member/update/${selectedMember.id}`,
+            `https://sods-admin.up.railway.app/api/member/update/${selectedMember.id}`,
             formData,
             {
               headers: { "Content-Type": "multipart/form-data" },
@@ -96,7 +96,7 @@ const TeamMembers = () => {
       if (result.isConfirmed) {
         try {
           await axios.delete(
-            `http://localhost:9092/api/member/deletemember/${id}`
+            `https://sods-admin.up.railway.app/api/member/deletemember/${id}`
           );
           fetchMembers(); // Refresh member list
           Swal.fire("Deleted!", "The member has been deleted.", "success");
@@ -158,7 +158,7 @@ const TeamMembers = () => {
                       <td className="px-4 py-2 border">{member.year}</td>
                       <td className="px-4 py-2 border">
                         <img
-                          src={`http://localhost:9092/api/member/getmemberimage/${member.id}`}
+                          src={`https://sods-admin.up.railway.app/api/member/getmemberimage/${member.id}`}
                           alt={`${member.name}'s profile`}
                           className="w-16 h-16 object-cover rounded-full"
                         />

@@ -18,9 +18,9 @@ const Adminhome = () => {
       try {
         const [membersResponse, projectsResponse, activitiesResponse] =
           await Promise.all([
-            axios.get("http://localhost:9092/api/member/getallmembers"),
-            axios.get("http://localhost:9092/api/project/getallprojects"),
-            axios.get("http://localhost:9092/api/activity/getactivities"),
+            axios.get("https://sods-admin.up.railway.app/api/member/getallmembers"),
+            axios.get("https://sods-admin.up.railway.app/api/project/getallprojects"),
+            axios.get("https://sods-admin.up.railway.app/api/activity/getactivities"),
           ]);
 
         const members = membersResponse.data;

@@ -11,7 +11,7 @@ const AllActivities = () => {
   // Fetch all activities
   const fetchActivities = async () => {
     try {
-      const response = await axios.get("http://localhost:9092/api/activity/getactivities");
+      const response = await axios.get("https://sods-admin.up.railway.app/api/activity/getactivities");
       setActivities(response.data);
     } catch (error) {
       console.error("Error fetching activities:", error);
@@ -41,7 +41,7 @@ const AllActivities = () => {
         }
         try {
           await axios.put(
-            `http://localhost:9092/api/activity/update/${selectedActivity.id}`,
+            `https://sods-admin.up.railway.app/api/activity/update/${selectedActivity.id}`,
             formData,
             {
               headers: { "Content-Type": "multipart/form-data" },
@@ -72,7 +72,7 @@ const AllActivities = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:9092/api/activity/deleteactivity/${id}`);
+          await axios.delete(`https://sods-admin.up.railway.app/api/activity/deleteactivity/${id}`);
           fetchActivities(); // Refresh activity list
           Swal.fire("Deleted!", "The activity has been deleted.", "success");
         } catch (error) {
@@ -124,7 +124,7 @@ const AllActivities = () => {
                       <td className="px-4 py-2 border">{activity.des}</td>
                       <td className="px-4 py-2 border">
                         <img
-                          src={`http://localhost:9092/api/activity/getactivityimage/${activity.id}`}
+                          src={`https://sods-admin.up.railway.app/api/activity/getactivityimage/${activity.id}`}
                           alt={`${activity.title}`}
                           className="w-16 h-16 object-cover rounded-full"
                         />

@@ -31,7 +31,7 @@ const AddActivity = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:9092/api/activity/addactivity",
+        "https://sods-admin.up.railway.app/api/activity/addactivity",
         formData,
         {
           headers: {

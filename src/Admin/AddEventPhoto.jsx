@@ -20,7 +20,7 @@ const AddEventphoto = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:9092/api/event/addeventphoto",
+        "https://sods-admin.up.railway.app/api/event/addeventphoto",
         formData,
         {
           headers: {

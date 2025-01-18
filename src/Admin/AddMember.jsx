@@ -36,7 +36,7 @@ const AddMember = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:9092/api/member/addmember",
+        "https://sods-admin.up.railway.app/api/member/addmember",
         formData,
         {
           headers: {

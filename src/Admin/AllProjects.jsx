@@ -19,7 +19,7 @@ const AllProjects = () => {
   // Fetch all projects
   const fetchProjects = async () => {
     try {
-      const response = await axios.get("http://localhost:9092/api/project/getallprojects");
+      const response = await axios.get("https://sods-admin.up.railway.app/api/project/getallprojects");
       setProjects(response.data);
     } catch (error) {
       console.error("Error fetching projects:", error);
@@ -34,7 +34,7 @@ const AllProjects = () => {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:9092/api/project/addproject", newProject);
+      await axios.post("https://sods-admin.up.railway.app/api/project/addproject", newProject);
       setIsAdding(false);
       setNewProject({ title: "", description: "", status: "", team: "", deadline: "" });
       fetchProjects(); // Refresh project list
@@ -52,7 +52,7 @@ const AllProjects = () => {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:9092/api/project/editproject/${editProject.id}`, editProject);
+      await axios.put(`https://sods-admin.up.railway.app/api/project/editproject/${editProject.id}`, editProject);
       setIsEditing(false);
       fetchProjects(); // Refresh project list
     } catch (error) {
@@ -75,7 +75,7 @@ const AllProjects = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:9092/api/project/deleteproject/${id}`);
+          await axios.delete(`https://sods-admin.up.railway.app/api/project/deleteproject/${id}`);
           fetchProjects(); // Refresh project list
           Swal.fire("Deleted!", "The project has been deleted.", "success");
         } catch (error) {

@@ -24,7 +24,7 @@ const Adminnavbar = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:9092/api/admin/logout', 
+        'https://sods-admin.up.railway.app/api/admin/logout', 
         {}, // Axios requires a data object for POST requests; use an empty object if no data is sent
         { withCredentials: true } // Enable sending cookies for cross-origin requests
       );

@@ -19,7 +19,7 @@ const Adminlogin = () => {
     try {
       console.log(data);
       const response = await axios.post(
-        'http://localhost:9092/api/admin/checkadmin',
+        'https://sods-admin.up.railway.app/api/admin/checkadmin',
         { username: data.username, password: data.password },
         { withCredentials: true }
       );

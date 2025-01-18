@@ -14,7 +14,7 @@ const AllAdmins = () => {
   // Fetch all admins
   const fetchAdmins = async () => {
     try {
-      const response = await axios.get("http://localhost:9092/api/admin/getalladmins");
+      const response = await axios.get("https://sods-admin.up.railway.app/api/admin/getalladmins");
       setAdmins(response.data);
     } catch (error) {
       console.error("Error fetching admins:", error);
@@ -29,7 +29,7 @@ const AllAdmins = () => {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:9092/api/admin/addadmin", newAdmin);
+      await axios.post("sods-admin.up.railway.app/api/admin/addadmin", newAdmin);
       setIsAdding(false);
       setNewAdmin({ username: "", password: "" });
       fetchAdmins(); // Refresh admin list
@@ -52,7 +52,7 @@ const AllAdmins = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:9092/api/admin/deleteadmin/${id}`);
+          await axios.delete(`sods-admin.up.railway.app/api/admin/deleteadmin/${id}`);
           fetchAdmins(); // Refresh admin list
           Swal.fire("Deleted!", "The admin has been deleted.", "success");
         } catch (error) {
