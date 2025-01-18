@@ -10,10 +10,12 @@ import AddActivity from './Admin/AddActivity';
 import AllAdmins from './Admin/AllAdmins';
 import AddEventPhoto from './Admin/AddEventPhoto';
 import ProtectedRoute from './Admin/ProtectedRoute';
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   return (
     <BrowserRouter>
+     <Analytics />
     <Routes>
      <Route path='/' element={<Adminlogin/>}/>
      <Route path='/adminhome' element={ <ProtectedRoute><Adminhome /></ProtectedRoute>}/>
