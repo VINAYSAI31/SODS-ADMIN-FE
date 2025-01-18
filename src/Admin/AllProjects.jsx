@@ -9,19 +9,17 @@ const AllProjects = () => {
   const [editProject, setEditProject] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [newProject, setNewProject] = useState({
-    title: "",
+    title: "", 
     description: "",
     status: "",
-    team: "",
+    team: "", 
     deadline: "",
   });
 
   // Fetch all projects
   const fetchProjects = async () => {
     try {
-      const response = await axios.get(
-        "https://sods-admin.up.railway.app/api/project/getallprojects"
-      );
+      const response = await axios.get("https://sods-admin.up.railway.app/api/project/getallprojects");
       setProjects(response.data);
     } catch (error) {
       console.error("Error fetching projects:", error);
@@ -36,10 +34,7 @@ const AllProjects = () => {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-        "https://sods-admin.up.railway.app/api/project/addproject",
-        newProject
-      );
+      await axios.post("https://sods-admin.up.railway.app/api/project/addproject", newProject);
       setIsAdding(false);
       setNewProject({ title: "", description: "", status: "", team: "", deadline: "" });
       fetchProjects(); // Refresh project list
@@ -57,10 +52,7 @@ const AllProjects = () => {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(
-        `https://sods-admin.up.railway.app/api/project/editproject/${editProject.id}`,
-        editProject
-      );
+      await axios.put(`https://sods-admin.up.railway.app/api/project/editproject/${editProject.id}`, editProject);
       setIsEditing(false);
       fetchProjects(); // Refresh project list
     } catch (error) {
@@ -69,6 +61,8 @@ const AllProjects = () => {
   };
 
   // Handle deleting a project
+
+
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -81,9 +75,7 @@ const AllProjects = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(
-            `https://sods-admin.up.railway.app/api/project/deleteproject/${id}`
-          );
+          await axios.delete(`https://sods-admin.up.railway.app/api/project/deleteproject/${id}`);
           fetchProjects(); // Refresh project list
           Swal.fire("Deleted!", "The project has been deleted.", "success");
         } catch (error) {
@@ -93,6 +85,7 @@ const AllProjects = () => {
       }
     });
   };
+  
 
   return (
     <>
@@ -129,52 +122,50 @@ const AllProjects = () => {
               </div>
 
               {/* Projects Table */}
-              <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-md">
-                  <thead>
-                    <tr className="bg-gray-100 text-left">
-                      <th className="px-4 py-2 border">Title</th>
-                      <th className="px-4 py-2 border">Description</th>
-                      <th className="px-4 py-2 border">Status</th>
-                      <th className="px-4 py-2 border">Team</th>
-                      <th className="px-4 py-2 border">Deadline</th>
-                      <th className="px-4 py-2 border">Actions</th>
+              <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-md">
+                <thead>
+                  <tr className="bg-gray-100 text-left">
+                    <th className="px-4 py-2 border">Title</th>
+                    <th className="px-4 py-2 border">Description</th>
+                    <th className="px-4 py-2 border">Status</th>
+                    <th className="px-4 py-2 border">Team</th>
+                    <th className="px-4 py-2 border">Deadline</th>
+                    <th className="px-4 py-2 border">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {projects.map((project) => (
+                    <tr key={project.id}>
+                      <td className="px-4 py-2 border">{project.title}</td>
+                      <td className="px-4 py-2 border">{project.description}</td>
+                      <td className="px-4 py-2 border">{project.status}</td>
+                      <td className="px-4 py-2 border">{project.team}</td>
+                      <td className="px-4 py-2 border">{project.deadline}</td>
+                      <td className="px-4 py-2 border flex gap-2">
+                        <button
+                          className="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                          onClick={() => handleEdit(project)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="px-4 py-1 text-white bg-red-500 rounded hover:bg-red-600"
+                          onClick={() => handleDelete(project.id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {projects.map((project) => (
-                      <tr key={project.id}>
-                        <td className="px-4 py-2 border">{project.title}</td>
-                        <td className="px-4 py-2 border">{project.description}</td>
-                        <td className="px-4 py-2 border">{project.status}</td>
-                        <td className="px-4 py-2 border">{project.team}</td>
-                        <td className="px-4 py-2 border">{project.deadline}</td>
-                        <td className="px-4 py-2 border flex gap-2">
-                          <button
-                            className="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-                            onClick={() => handleEdit(project)}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            className="px-4 py-1 text-white bg-red-500 rounded hover:bg-red-600"
-                            onClick={() => handleDelete(project.id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             {/* Add Project Form */}
             {isAdding && (
               <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
                 <form
-                  className="bg-white p-6 rounded shadow-md w-full max-w-md"
+                  className="bg-white p-6 rounded shadow-md w-1/3"
                   onSubmit={handleAddSubmit}
                 >
                   <h2 className="text-lg font-bold mb-4">Add Project</h2>
@@ -263,86 +254,88 @@ const AllProjects = () => {
             )}
 
             {/* Edit Form */}
-            {isEditing && (
-              <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
-                <form
-                  className="bg-white p-6 rounded shadow-md w-full max-w-md"
-                  onSubmit={handleEditSubmit}
-                >
-                  <h2 className="text-lg font-bold mb-4">Edit Project</h2>
-                  <div className="mb-4">
-                    <label className="block text-gray-700">Title</label>
-                    <input
-                      type="text"
-                      value={editProject.title}
-                      onChange={(e) =>
-                        setEditProject({ ...editProject, title: e.target.value })
-                      }
-                      className="w-full px-3 py-2 border rounded"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700">Description</label>
-                    <textarea
-                      value={editProject.description}
-                      onChange={(e) =>
-                        setEditProject({ ...editProject, description: e.target.value })
-                      }
-                      className="w-full px-3 py-2 border rounded"
-                    ></textarea>
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700">Status</label>
-                    <input
-                      type="text"
-                      value={editProject.status}
-                      onChange={(e) =>
-                        setEditProject({ ...editProject, status: e.target.value })
-                      }
-                      className="w-full px-3 py-2 border rounded"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700">Team</label>
-                    <input
-                      type="text"
-                      value={editProject.team}
-                      onChange={(e) =>
-                        setEditProject({ ...editProject, team: e.target.value })
-                      }
-                      className="w-full px-3 py-2 border rounded"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700">Deadline</label>
-                    <input
-                      type="date"
-                      value={editProject.deadline}
-                      onChange={(e) =>
-                        setEditProject({ ...editProject, deadline: e.target.value })
-                      }
-                      className="w-full px-3 py-2 border rounded"
-                    />
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <button
-                      type="button"
-                      className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-                      onClick={() => setIsEditing(false)}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-                    >
-                      Save Changes
-                    </button>
-                  </div>
-                </form>
+           {/* Edit Form */}
+        {isEditing && (
+          <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+            <form
+              className="bg-white p-6 rounded shadow-md w-1/3"
+              onSubmit={handleEditSubmit}
+            >
+              <h2 className="text-lg font-bold mb-4">Edit Project</h2>
+              <div className="mb-4">
+                <label className="block text-gray-700">Title</label>
+                <input
+                  type="text"
+                  value={editProject.title}
+                  onChange={(e) =>
+                    setEditProject({ ...editProject, title: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border rounded"
+                />
               </div>
-            )}
+              <div className="mb-4">
+                <label className="block text-gray-700">Description</label>
+                <textarea
+                  value={editProject.description}
+                  onChange={(e) =>
+                    setEditProject({ ...editProject, description: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border rounded"
+                ></textarea>
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700">Status</label>
+                <input
+                  type="text"
+                  value={editProject.status}
+                  onChange={(e) =>
+                    setEditProject({ ...editProject, status: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700">Team</label>
+                <input
+                  type="text"
+                  value={editProject.team}
+                  onChange={(e) =>
+                    setEditProject({ ...editProject, team: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700">Deadline</label>
+                <input
+                  type="date"
+                  value={editProject.deadline}
+                  onChange={(e) =>
+                    setEditProject({ ...editProject, deadline: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border rounded"
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                  onClick={() => setIsEditing(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
           </div>
+        )}
+      </div>
+
         </div>
       </div>
     </>
