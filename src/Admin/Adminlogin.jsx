@@ -39,8 +39,15 @@ const Adminlogin = () => {
 
   return (
     <>
-    
+  
+  <a href="https://sods-klef.vercel.app/" class="absolute top-8 left-10">
+  <button class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
+    Back
+  </button>
+</a>
+
       <div className="min-h-screen flex items-center justify-center p-4">
+        
         <div className="background-pattern max-w-md w-full bg-white backdrop-blur-lg rounded-2xl p-8 shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
           <div className="flex justify-center mb-8">
             <Shield className="h-12 w-12 text-purple-700" />
